@@ -1,17 +1,21 @@
-"""Main program for Event Equipment Rental & Logistics.
+"""Main program scaffold.
 
-TV4: NTVien207
+Owner: NTVien207
 Rule: procedural programming only. Do not use OOP.
 """
 
 from equipment import (
     add_equipment,
-    display_equipment,
     search_equipment_by_id,
     search_equipment_by_status,
     update_equipment,
+    display_equipment,
 )
-from rental import create_rental_order, display_rental_orders, return_equipment
+from rental import (
+    create_rental_order,
+    return_equipment,
+    display_rental_orders,
+)
 from file_handler import (
     load_equipment_from_file,
     save_equipment_to_file,
@@ -27,7 +31,7 @@ from analysis import (
 
 
 def equipment_menu(equipment_list):
-    """Display and control equipment submenu."""
+    """Equipment submenu scaffold."""
     while True:
         print("\n===== Equipment Management =====")
         print("1. Add Equipment")
@@ -43,17 +47,14 @@ def equipment_menu(equipment_list):
             add_equipment(equipment_list)
         elif choice == "2":
             equipment_id = input("Enter equipment ID: ").strip()
-            equipment = search_equipment_by_id(equipment_list, equipment_id)
-            if equipment is None:
-                print("Equipment not found.")
-            else:
-                print(equipment)
+            result = search_equipment_by_id(equipment_list, equipment_id)
+            print(result)
         elif choice == "3":
-            status = input("Enter status (Available/Rented): ").strip()
+            status = input("Enter status: ").strip()
             result = search_equipment_by_status(equipment_list, status)
-            display_equipment(result)
+            print(result)
         elif choice == "4":
-            equipment_id = input("Enter equipment ID to update: ").strip()
+            equipment_id = input("Enter equipment ID: ").strip()
             update_equipment(equipment_list, equipment_id)
         elif choice == "5":
             display_equipment(equipment_list)
@@ -64,7 +65,7 @@ def equipment_menu(equipment_list):
 
 
 def analysis_menu(equipment_list, rental_list):
-    """Display and control data analysis submenu."""
+    """Data analysis submenu scaffold."""
     while True:
         print("\n===== Data Analysis =====")
         print("1. Sort Equipment by Rental Rate")
@@ -90,9 +91,9 @@ def analysis_menu(equipment_list, rental_list):
 
 
 def main_menu():
-    """Main console menu."""
-    equipment_list = load_equipment_from_file()
-    rental_list = load_rentals_from_file()
+    """Main menu scaffold."""
+    equipment_list = load_equipment_from_file() or []
+    rental_list = load_rentals_from_file() or []
 
     while True:
         print("\n===== Event Equipment Rental & Logistics =====")
@@ -119,11 +120,11 @@ def main_menu():
         elif choice == "6":
             save_equipment_to_file(equipment_list)
             save_rentals_to_file(rental_list)
-            print("Data saved successfully.")
+            print("Data saved.")
         elif choice == "7":
             save_equipment_to_file(equipment_list)
             save_rentals_to_file(rental_list)
-            print("Data saved. Exiting program...")
+            print("Exit program.")
             break
         else:
             print("Invalid option.")
