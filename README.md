@@ -1,9 +1,29 @@
-# Event Equipment Rental & Logistics - No OOP Version
+# Event Equipment Rental & Logistics - No OOP
 
-Python console application for managing event equipment and rental orders.
+Python console project for managing event equipment and rental orders.
 
-> This project version uses **procedural programming** instead of OOP.
-> Do not use `class`, `self`, `__init__`, `@property`, inheritance, or dataclass.
+## Coding Direction
+
+This version uses **procedural programming** only.
+
+Do not use:
+
+```python
+class
+self
+__init__
+@property
+```
+
+Use:
+
+```python
+function
+list
+dict
+csv
+try-except
+```
 
 ## Team Members
 
@@ -13,17 +33,6 @@ Python console application for managing event equipment and rental orders.
 | TV2 | `Cser2-hyb` | Rental Management |
 | TV3 | `Titannz` | File I/O + Data Analysis |
 | TV4 | `NTVien207` | Main Menu + Integration + Report/Slides |
-
-## Main Features
-
-- Manage equipment information
-- Create rental orders
-- Return rented equipment
-- Calculate rental fees and late penalties
-- Sort and analyze equipment/rental data
-- Load and save data with CSV files
-- Console-based menu system
-- Input validation with `try-except`
 
 ## Project Structure
 
@@ -66,7 +75,8 @@ rental = {
     "expected_return_time": "2026-06-10 12:00",
     "actual_return_time": "",
     "status": "Renting",
-    "total_fee": 400000
+    "total_fee": 400000,
+    "late_penalty": 0
 }
 ```
 
@@ -76,9 +86,7 @@ rental = {
 python main.py
 ```
 
-## Git Workflow
-
-Each member should work on their own branch:
+## Branches
 
 | Member | Branch |
 |---|---|
@@ -87,7 +95,7 @@ Each member should work on their own branch:
 | `Titannz` | `feature/file-analysis` |
 | `NTVien207` | `feature/menu-integration` |
 
-Workflow:
+## Git Workflow
 
 ```text
 Issue → Branch → Code → Commit → Push → Pull Request → Review → Merge
@@ -96,7 +104,7 @@ Issue → Branch → Code → Commit → Push → Pull Request → Review → Me
 ## Rules
 
 - Do not push directly to `main`.
+- Each member works on their own branch.
 - Do not rename dictionary keys without team agreement.
-- Do not rename function signatures without team agreement.
-- Test with `python main.py` before creating a pull request.
-- Keep the code beginner-friendly and modular.
+- Do not rename function names without team agreement.
+- Test with `python main.py` before creating a Pull Request.
