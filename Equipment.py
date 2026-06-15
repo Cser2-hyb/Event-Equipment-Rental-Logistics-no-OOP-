@@ -1,123 +1,114 @@
-'''
-variable declaration(khai báo biến):
-         add_equipment() — thêm thiết bị với đầy đủ validation
-         search_equipment_by_id() — tìm thiết bị theo mã
-        search_equipment_by_status() — tìm thiết bị theo trạng thái
-         update_equipment() — cập nhật thiết bị có validation
-         display_equipment() — hiển thị bảng được định dạng đẹp
-'''   
-
-ds_thiet_bi =[
-    {'id' : 'TB001', 'name': 'bua', 'status': 'Active'},
-    {'id': 'TB002', 'name': 'cua', 'status':'Inactive'},
+equipment_list = [
+    {'id': 'TB001', 'name': 'Hammer', 'status': 'Active'},
+    {'id': 'TB002', 'name': 'Saw', 'status': 'Inactive'},
 ]
 def add_equipment():
     print("\n--- ADD NEW EQUIPMENT ---")
     
     while True:
-        ma_id = input("Enter equipment ID: ")
+        equipment_id = input("Enter equipment ID: ")
         
-        if ma_id == "":
+        if equipment_id == "":
             print("Error: ID cannot be empty!")
-            continue # Bắt nhập lại
+            continue 
             
-        trung_ma = False
-        for tb in ds_thiet_bi:
-            if tb["id"] == ma_id:
-                trung_ma = True
+        duplicate_id = False
+        for eq in equipment_list:
+            if eq["id"] == equipment_id:
+                duplicate_id = True
                 break
         
-        if trung_ma == True:
+        if duplicate_id == True:
             print("Error: This ID already exists!")
         else:
             break 
 
-    # Nhập và kiểm tra Tên
+    # Input and validate Name
     while True:
-        ten = input("Enter equipment name: ")
-        if ten == "":
+        name = input("Enter equipment name: ")
+        if name == "":
             print("Error: Name cannot be empty!")
         else:
             break
 
-    # Nhập và kiểm tra Trạng thái
+    # Input and validate Status
     while True:
-        trang_thai = input("Enter status (Active or Inactive): ")
-        if trang_thai == "Active" or trang_thai == "Inactive":
+        status = input("Enter status (Active or Inactive): ")
+        if status == "Active" or status == "Inactive":
             break
         else:
             print("Error: Please enter 'Active' or 'Inactive'!")
 
-    thiet_bi_moi = {"id": ma_id, "name": ten, "status": trang_thai}
+    new_equipment = {"id": equipment_id, "name": name, "status": status}
     
-    # Thêm vào danh sách tổng
-    ds_thiet_bi.append(thiet_bi_moi)
+    # Append to the main list
+    equipment_list.append(new_equipment)
     print("New equipment added successfully!")
 
 def search_equipment_by_id():
     print("\n--- SEARCH BY ID ---")
-    ma_tim = input("Enter equipment ID to search: ")
+    search_id = input("Enter equipment ID to search: ")
     
-    tim_thay = False
-    for tb in ds_thiet_bi:
-        if tb["id"] == ma_tim:
+    found = False
+    for eq in equipment_list:
+        if eq["id"] == search_id:
             print("Found:")
-            print(f"- ID: {tb['id']}\n- Name: {tb['name']}\n- Status: {tb['status']}")
-            tim_thay = True
-            break # Tìm thấy rồi thì dừng vòng lặp
+            print(f"- ID: {eq['id']}\n- Name: {eq['name']}\n- Status: {eq['status']}")
+            found = True
+            break 
             
-    if tim_thay == False:
+    if found == False:
         print("No equipment found with that ID.")
 
 def search_equipment_by_status():
     print("\n--- SEARCH BY STATUS ---")
-    trang_thai_tim = input("Enter status to search (Active or Inactive): ")
+    search_status = input("Enter status to search (Active or Inactive): ")
     
-    if trang_thai_tim != "Active" and trang_thai_tim != "Inactive":
+    if search_status != "Active" and search_status != "Inactive":
         print("Error: Please enter 'Active' or 'Inactive'!")
         return
     
-    tim_thay = False
-    for tb in ds_thiet_bi:
-        if tb["status"] == trang_thai_tim:
-            if tim_thay == False:
-                print(f"Equipment with status '{trang_thai_tim}':")
-            print(f"- ID: {tb['id']}\n- Name: {tb['name']}\n- Status: {tb['status']}\n")
-            tim_thay = True
+    found = False
+    for eq in equipment_list:
+        if eq["status"] == search_status:
+            if found == False:
+                print(f"Equipment with status '{search_status}':")
+            print(f"- ID: {eq['id']}\n- Name: {eq['name']}\n- Status: {eq['status']}\n")
+            found = True
             
-    if tim_thay == False:
-        print(f"No equipment found with status '{trang_thai_tim}'.")
+    if found == False:
+        print(f"No equipment found with status '{search_status}'.")
 
 def update_equipment(): 
     print("\n--- UPDATE EQUIPMENT ---")
-    ma_sua = input("Enter equipment ID to update: ")
+    update_id = input("Enter equipment ID to update: ")
     
-    # Tìm xem thiết bị có tồn tại không
-    thiet_bi_can_sua = None
-    for tb in ds_thiet_bi:
-        if tb["id"] == ma_sua:
-            thiet_bi_can_sua = tb
+    # Check if the equipment exists
+    equipment_to_update = None
+    for eq in equipment_list:
+        if eq["id"] == update_id:
+            equipment_to_update = eq
             break
             
-    if thiet_bi_can_sua == None:
+    if equipment_to_update == None:
         print("No equipment found with that ID to update!")
-        return # Thoát hàm luôn
+        return # Exit function immediately
 
-    print(f"Updating equipment: {thiet_bi_can_sua['name']}")
+    print(f"Updating equipment: {equipment_to_update['name']}")
     print("(Press Enter to skip without changing)")
     
-    # Sửa tên
-    ten_moi = input("Enter new name: ")
-    if ten_moi != "":
-        thiet_bi_can_sua["name"] = ten_moi
+    # Update Name
+    new_name = input("Enter new name: ")
+    if new_name != "":
+        equipment_to_update["name"] = new_name
 
-    # Sửa trạng thái (có kiểm tra nhập đúng quy định)
+    # Update Status (with validation)
     while True:
-        status_moi = input("Enter new status (Active/Inactive): ")
-        if status_moi == "": 
-            break # Người dùng không nhập gì => Giữ nguyên, thoát vòng lặp
-        elif status_moi == "Active" or status_moi == "Inactive":
-            thiet_bi_can_sua["status"] = status_moi
+        new_status = input("Enter new status (Active/Inactive): ")
+        if new_status == "": 
+            break # User pressed Enter without typing => Keep old status, exit loop
+        elif new_status == "Active" or new_status == "Inactive":
+            equipment_to_update["status"] = new_status
             break
         else:
             print("Error: Only 'Active', 'Inactive', or empty input is allowed!")
@@ -125,13 +116,13 @@ def update_equipment():
     print("Information updated successfully!")
 
 def display_equipment():
-        print("\n--- EQUIPMENT LIST ---")
-        if len(ds_thiet_bi) == 0:
-            print("The equipment list is currently empty.")
-            return
-        
-        for tb in ds_thiet_bi:
-            print(f"- ID: {tb['id']}\n- Name: {tb['name']}\n- Status: {tb['status']}\n")
+    print("\n--- EQUIPMENT LIST ---")
+    if len(equipment_list) == 0:
+        print("The equipment list is currently empty.")
+        return
+    
+    for eq in equipment_list:
+        print(f"- ID: {eq['id']}\n- Name: {eq['name']}\n- Status: {eq['status']}\n")
 
 while True:
     print("\n=== EQUIPMENT MANAGEMENT ===")
