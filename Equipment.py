@@ -1,3 +1,11 @@
+'''
+variable declaration(khai báo biến):
+         add_equipment() — thêm thiết bị với đầy đủ validation
+         search_equipment_by_id() — tìm thiết bị theo mã
+        search_equipment_by_status() — tìm thiết bị theo trạng thái
+         update_equipment() — cập nhật thiết bị có validation
+         display_equipment() — hiển thị bảng được định dạng đẹp
+'''   
 equipment_list = [
     {'id': 'TB001', 'name': 'Hammer', 'status': 'Active'},
     {'id': 'TB002', 'name': 'Saw', 'status': 'Inactive'},
