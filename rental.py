@@ -1,8 +1,8 @@
-"""calculate_rental_fee() — tính phí thuê cơ bản
-  calculate_late_penalty() — phạt 50,000 VND/giờ trễ (làm tròn lên)
-  create_rental_order() — tạo đơn thuê với đầy đủ validation
-  return_equipment() — trả thiết bị kèm tính phạt
-  display_rental_orders() — hiển thị bảng đơn thuê được định dạng
+﻿"""calculate_rental_fee() â€” tÃ­nh phÃ­ thuÃª cÆ¡ báº£n
+  calculate_late_penalty() â€” pháº¡t 50,000 VND/giá» trá»… (lÃ m trÃ²n lÃªn)
+  create_rental_order() â€” táº¡o Ä‘Æ¡n thuÃª vá»›i Ä‘áº§y Ä‘á»§ validation
+  return_equipment() â€” tráº£ thiáº¿t bá»‹ kÃ¨m tÃ­nh pháº¡t
+  display_rental_orders() â€” hiá»ƒn thá»‹ báº£ng Ä‘Æ¡n thuÃª Ä‘Æ°á»£c Ä‘á»‹nh dáº¡ng
 """
 
 from datetime import datetime
@@ -19,7 +19,7 @@ rental_list = []
 
 
 def display_rental_orders(rental_list):
-    """In ra các đơn thuê trong bảng định dạng."""
+    """In ra cÃ¡c Ä‘Æ¡n thuÃª trong báº£ng Ä‘á»‹nh dáº¡ng."""
     if not rental_list:
         print("\n No rental order found")
         return
@@ -42,7 +42,7 @@ def display_rental_orders(rental_list):
             f"{r['expected_return_time']:<18} "
             f"{actual:<18} "
             f"{r['status']:<12} "
-            f"{float(r['total_fee']):,.0f}"
+            f"{float(r['total_fee'] or 0):,.0f}"
         )
 
 
@@ -148,7 +148,7 @@ def create_rental_order(rental_list, equipment_list):
         "start_time": start_time,
         "expected_return_time": expected_return_time,
         "actual_return_time": "",
-        "status": "renting",
+        "status": "Renting",
         "total_fee": total_fee,
     }
     rental_list.append(new_rental)
@@ -203,9 +203,9 @@ def return_equipment(rental_list, equipment_list):
     total_due = float(target_rental["total_fee"]) + penalty
     target_rental["total_fee"] = total_due
 
-    eq = (equipment_list, target_rental["equipment_id"])
+    eq = search_equipment_by_id(equipment_list, target_rental["equipment_id"])
     if eq is not None:
-        eq = search_equipment_by_id(equipment_list, target_rental["equipment_id"]) 
+        eq["status"] = "Active"
 
     print(f"\n[OK] Equipment returned successfully for Rental '{rental_id}'.")
     if penalty > 0:
