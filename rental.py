@@ -1,10 +1,9 @@
-﻿"""calculate_rental_fee() â€” tÃ­nh phÃ­ thuÃª cÆ¡ báº£n
-  calculate_late_penalty() â€” pháº¡t 50,000 VND/giá» trá»… (lÃ m trÃ²n lÃªn)
-  create_rental_order() â€” táº¡o Ä‘Æ¡n thuÃª vá»›i Ä‘áº§y Ä‘á»§ validation
-  return_equipment() â€” tráº£ thiáº¿t bá»‹ kÃ¨m tÃ­nh pháº¡t
-  display_rental_orders() â€” hiá»ƒn thá»‹ báº£ng Ä‘Æ¡n thuÃª Ä‘Æ°á»£c Ä‘á»‹nh dáº¡ng
+""" calculate_rental_fee() — tính phí thuê cơ bản
+    calculate_late_penalty() — phạt 50,000 VND/giờ trễ (làm tròn lên)
+    create_rental_order() — tạo đơn thuê với đầy đủ validation
+    return_equipment() — trả thiết bị kèm tính phạt
+    display_rental_orders() — hiển thị bảng đơn thuê được định dạng
 """
-
 from datetime import datetime
 import math
 from Equipment import equipment_list, search_equipment_by_id
@@ -19,7 +18,7 @@ rental_list = []
 
 
 def display_rental_orders(rental_list):
-    """In ra cÃ¡c Ä‘Æ¡n thuÃª trong báº£ng Ä‘á»‹nh dáº¡ng."""
+  
     if not rental_list:
         print("\n No rental order found")
         return
